@@ -1,7 +1,8 @@
-CREPE Pitch Tracker 
+CREPE Pitch Tracker
 ===================
+<a href="https://replicate.ai/marl/crepe"><img src="https://img.shields.io/static/v1?label=Replicate&message=Demo and Docker Image&color=darkgreen" height=20></a>
 
-[![PyPI](https://img.shields.io/pypi/v/crepe.svg)](https://pypi.python.org/pypi/crepe) 
+[![PyPI](https://img.shields.io/pypi/v/crepe.svg)](https://pypi.python.org/pypi/crepe)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Build Status](https://travis-ci.org/marl/crepe.svg?branch=master)](https://travis-ci.org/marl/crepe)
 [![Downloads](https://pepy.tech/badge/crepe)](https://pepy.tech/project/crepe)
@@ -70,21 +71,21 @@ The resulting `audio_file.f0.csv` contains 3 columns: the first with timestamps 
 
 #### Timestamps
 
-CREPE uses 10-millisecond time steps by default, which can be adjusted using 
+CREPE uses 10-millisecond time steps by default, which can be adjusted using
 the `--step-size` option, which takes the size of the time step in millisecond.
 For example, `--step-size 50` will calculate pitch for every 50 milliseconds.
 
-Following the convention adopted by popular audio processing libraries such as 
-[Essentia](http://essentia.upf.edu/) and [Librosa](https://librosa.github.io/librosa/), 
-from v0.0.5 onwards CREPE will pad the input signal such that the first frame 
-is zero-centered (the center of the frame corresponds to time 0) and generally 
-all frames are centered around their corresponding timestamp, i.e. frame 
-`D[:, t]` is centered at `audio[t * hop_length]`. This behavior can be changed 
-by specifying the optional `--no-centering` flag, in which case the first frame 
-will *start* at time zero and generally frame `D[:, t]` will *begin* at 
-`audio[t * hop_length]`. Sticking to the default behavior (centered frames) is 
-strongly recommended to avoid misalignment with features and annotations produced 
-by other common audio processing tools. 
+Following the convention adopted by popular audio processing libraries such as
+[Essentia](http://essentia.upf.edu/) and [Librosa](https://librosa.github.io/librosa/),
+from v0.0.5 onwards CREPE will pad the input signal such that the first frame
+is zero-centered (the center of the frame corresponds to time 0) and generally
+all frames are centered around their corresponding timestamp, i.e. frame
+`D[:, t]` is centered at `audio[t * hop_length]`. This behavior can be changed
+by specifying the optional `--no-centering` flag, in which case the first frame
+will *start* at time zero and generally frame `D[:, t]` will *begin* at
+`audio[t * hop_length]`. Sticking to the default behavior (centered frames) is
+strongly recommended to avoid misalignment with features and annotations produced
+by other common audio processing tools.
 
 #### Model Capacity
 
@@ -92,32 +93,32 @@ CREPE uses the model size that was reported in the paper by default, but can opt
 use a smaller model for computation speed, at the cost of slightly lower accuracy.
 You can specify `--model-capacity {tiny|small|medium|large|full}` as the command
 line option to select a model with desired capacity.
-  
+
 #### Temporal smoothing
-By default CREPE does not apply temporal smoothing to the pitch curve, but 
-Viterbi smoothing is supported via the optional `--viterbi` command line argument. 
+By default CREPE does not apply temporal smoothing to the pitch curve, but
+Viterbi smoothing is supported via the optional `--viterbi` command line argument.
 
 
 #### Saving the activation matrix
-The script can also optionally save the output activation matrix of the model 
-to an npy file (`--save-activation`), where the matrix dimensions are 
-(n_frames, 360) using a hop size of 10 ms (there are 360 pitch bins covering 20 
-cents each). 
+The script can also optionally save the output activation matrix of the model
+to an npy file (`--save-activation`), where the matrix dimensions are
+(n_frames, 360) using a hop size of 10 ms (there are 360 pitch bins covering 20
+cents each).
 
-The script can also output a plot of the activation matrix (`--save-plot`), 
-saved to `audio_file.activation.png` including an optional visual representation 
-of the model's voicing detection (`--plot-voicing`). Here's an example plot of 
-the activation matrix (without the voicing overlay) for an excerpt of male 
+The script can also output a plot of the activation matrix (`--save-plot`),
+saved to `audio_file.activation.png` including an optional visual representation
+of the model's voicing detection (`--plot-voicing`). Here's an example plot of
+the activation matrix (without the voicing overlay) for an excerpt of male
 singing voice:
 
 ![salience](https://user-images.githubusercontent.com/266841/38465913-6fa085b0-3aef-11e8-9633-bdd59618ea23.png)
 
 #### Batch processing
-For batch processing of files, you can provide a folder path instead of a file path: 
+For batch processing of files, you can provide a folder path instead of a file path:
 ```bash
 $ python crepe.py audio_folder
 ```
-The script will process all WAV files found inside the folder. 
+The script will process all WAV files found inside the folder.
 
 #### Additional usage information
 For more information on the usage, please refer to the help message:
@@ -170,4 +171,3 @@ This release of CREPE uses the following weighted averaging formula, which is sl
 [5] J. Salamon et al.  "An Analysis/Synthesis Framework for Automatic F0 Annotation of Multitrack Datasets",  *Proceedings of the International Society for Music Information Retrieval (ISMIR) Conference*. 2017.
 
 [6] J. Engel et al. "Neural Audio Synthesis of Musical Notes with WaveNet Autoencoders", *arXiv preprint: 1704.01279*. 2017.
-

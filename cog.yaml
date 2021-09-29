@@ -1,0 +1,8 @@
+build:
+  python_version: "3.7"
+  gpu: false
+  python_packages:
+    - crepe==0.0.12
+    - tensorflow==2.5.1 --no-cache-dir
+
+predict: "predict.py:Predictor"
